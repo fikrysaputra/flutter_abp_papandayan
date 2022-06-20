@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879389495774",
+    "project_id": "tubes-abp-papandayan",
+    "storage_bucket": "tubes-abp-papandayan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879389495774:android:0f96c7e2541a4b2daf4d4f",
+        "android_client_info": {
+          "package_name": "com.abpsembilan.masukgoogle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879389495774-7mtckp790abl6o62428jroegl54m0d7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1aQcSiGy_HoFU6iJoguLyUlC5to0iZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879389495774-7mtckp790abl6o62428jroegl54m0d7e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

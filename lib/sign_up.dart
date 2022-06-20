@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key key}) : super(key: key);
+  const SignUp({Key? key}) : super(key: key);
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -72,7 +72,6 @@ class _SignUpState extends State<SignUp> {
                                 height: 10,
                               ),
                               Container(
-                                // padding: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
                                 decoration: const BoxDecoration(
                                     border: Border(
                                         bottom:
