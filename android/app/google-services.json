@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "89040745493",
+    "project_id": "com-example-twapapandayan",
+    "storage_bucket": "com-example-twapapandayan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89040745493:android:e0a5061be3d916ebf1ca1c",
+        "android_client_info": {
+          "package_name": "com.example.twapapandayan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89040745493-6uh1v9nfelsi829vm6d07vuu65ndkmev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.twapapandayan",
+            "certificate_hash": "9e80a99e7f2aa77046fdcc306b9dfac766f06aa0"
+          }
+        },
+        {
+          "client_id": "89040745493-rps363epuqo7iklmjasmcf04kos9e0u4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbKHKgHQpXffRf_DJpSbGQTtI8MXXymu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89040745493-rps363epuqo7iklmjasmcf04kos9e0u4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
