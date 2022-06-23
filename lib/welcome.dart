@@ -1,12 +1,18 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import './dashboard.dart';
-import './sign_in.dart';
-import './sign_up.dart';
+import './auth.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
-class Welcome extends StatelessWidget {
+class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
 
+  @override
+  _Welcome createState() => _Welcome();
+}
+
+class _Welcome extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,10 +25,10 @@ class Welcome extends StatelessWidget {
             child: ListView(
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ClipPath(
                           clipper: WaveClipperOne(),
@@ -62,88 +68,49 @@ class Welcome extends StatelessWidget {
                         style: TextStyle(
                             color: Color(0xFF777779),
                             fontWeight: FontWeight.bold,
-                            fontSize: 18),
+                            fontSize: 18, ),
                       ),
                     ),
-                    const SizedBox(height: 120),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
-                      child: Container(
-                          height: 50.0,
-                          width: 280.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: const Color(0xFFECCA11),
-                              boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                                offset: const Offset(
-                                    0, 2), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignUp()),
-                              );
-                            },
-                            child: const Center(
-                              child: Text(
-                                "Daftar",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.bold,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: Offset(0.5, 0.5),
-                                      blurRadius: 0.5,
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 180),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 35),
                       child: Container(
                           height: 50,
-                          width: 280.0,
+                          width: 240.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                                colors: [Color(0xFF9DBE76), Color(0xFF74A730)]),
+                            gradient: const LinearGradient(colors: [
+                              Color(0xff4285f4),
+                              Color(0xFF34a853),
+                              Color(0xfffbbc05),
+                              Color(0xFFea4335)
+                            ]),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 2,
                                 blurRadius: 4,
-                                offset: const Offset(
-                                    0, 2), // changes position of shadow
+                                offset: const Offset(0, 2),
                               ),
                             ],
                           ),
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignIn()),
-                              );
+                              signInWithGoogle().then((result) {
+                                if (result != null) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const Dashboard();
+                                      },
+                                    ),
+                                  );
+                                }
+                              });
                             },
                             child: const Center(
                               child: Text(
-                                "Masuk",
+                                "Masuk Dengan Google",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Color(0xFFFFFFFF),
@@ -151,40 +118,6 @@ class Welcome extends StatelessWidget {
                               ),
                             ),
                           )),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
-                      child: Container(
-                          height: 50,
-                          width: 280.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.red,
-                          ),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Dashboard()),
-                              );
-                            },
-                            child: const Center(
-                              child: Text(
-                                "Dashboard test",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )),
-                    ),
-                    const SizedBox(
-                      height: 30,
                     ),
                   ],
                 ),

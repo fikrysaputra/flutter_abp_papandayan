@@ -1,10 +1,14 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'welcome.dart';
+import 'auth.dart';
+import 'addcomscreen.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _Dashboard createState() => _Dashboard();
 }
 
@@ -13,151 +17,134 @@ class _Dashboard extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffEBEDCF),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          const SizedBox(height: 110),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    imageUrl,
+                  ),
+                  radius: 40,
+                  backgroundColor: Colors.transparent,
+                ),
+                const SizedBox(height: 4),
+                const SizedBox(
+                  width: 10,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
-                    Text(
-                      "My Family",
-                      style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
+                  children: <Widget>[
+                    const Text("Selamat Datang !"),
+                    const SizedBox(
+                      height: 5,
                     ),
-                     SizedBox(height: 4),
-                     Text(
-                      "Dashboard",
-                        style: TextStyle(
-                            color: Color(0xff436904),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
+                    Text(
+                      name,
+                      style: const TextStyle(
+                          fontSize: 25,
+                          color: Color(0xff436904),
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 IconButton(
-                  onPressed: () {},
-                  alignment: Alignment.topCenter,
-                  icon: const Icon(Icons.logout_outlined, color: Colors.red, size: 30.0),
+                  onPressed: () {
+                    keluarDialog();
+                  },
+                  alignment: Alignment.topRight,
+                  icon: const Icon(Icons.logout_outlined,
+                      color: Colors.red, size: 30.0),
                 )
               ],
             ),
           ),
-          const SizedBox(height: 40),
-          GridDashboard()
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              margin: const EdgeInsets.all(10.0),
+              child:
+                  const Text('Dashboard', style: TextStyle(color: Colors.grey)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SizedBox(
+              height: 600.0,
+              child: ListView(
+                padding: const EdgeInsets.all(8),
+                children: <Widget>[
+                  Container(
+                    height: 100,
+                    color: const Color(0xFF9DBE76),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return AddScreen();
+                          }), ModalRoute.withName('/review'));
+                        },
+                        child: const Center(
+                          child: Text(
+                            "Berikan Review",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ),
+                  Container(
+                    height: 100,
+                    color: const Color(0xFF74A730),
+                    child: const Center(child: Text('Entry B')),
+                  ),
+                  Container(
+                    height: 100,
+                    color: const Color(0xFF9DBE76),
+                    child: const Center(child: Text('Entry C')),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-}
 
-// ignore: must_be_immutable
-class GridDashboard extends StatelessWidget {
-  Items item1 = Items(
-      title: "Calendar",
-      subtitle: "March, Wednesday",
-      event: "3 Events",
-      img: "images/calendar.png");
-
-  Items item2 = Items(
-    title: "Groceries",
-    subtitle: "Bocali, Apple",
-    event: "4 Items",
-    img: "images/food.png",
-  );
-  Items item3 = Items(
-    title: "Locations",
-    subtitle: "Lucy Mao going to Office",
-    event: "",
-    img: "images/map.png",
-  );
-  Items item4 = Items(
-    title: "Activity",
-    subtitle: "Rose favirited your Post",
-    event: "",
-    img: "images/festival.png",
-  );
-  Items item5 = Items(
-    title: "To do",
-    subtitle: "Homework, Design",
-    event: "4 Items",
-    img: "images/todo.png",
-  );
-  Items item6 = Items(
-    title: "Settings",
-    subtitle: "",
-    event: "2 Items",
-    img: "images/setting.png",
-  );
-
-  GridDashboard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2, item3, item4, item5, item6];
-    return Flexible(
-      child: GridView.count(
-        childAspectRatio: 1.0,
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        crossAxisCount: 2,
-        crossAxisSpacing: 18,
-        mainAxisSpacing: 18,
-        children: myList.map((data) {
-          return Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF9dbe76),
-              borderRadius: BorderRadius.circular(10),
+  Future<void> keluarDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF9DBE76),
+          title: const Text('Izin Keluar'),
+          content: const SingleChildScrollView(
+            child: Text(
+              'Yakin ingin keluar ?',
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(data.img, width: 42),
-                const SizedBox(height: 14),
-                Text(
-                  data.title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  data.subtitle,
-                  style: const TextStyle(
-                      color: Colors.white38,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                const SizedBox(height: 14),
-                Text(
-                  data.event,
-                  style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                    ),
-                ),
-              ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Tidak'),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          );
-        }).toList(),
-      ),
+            TextButton(
+              child: const Text('Ya'),
+              onPressed: () {
+                signOutGoogle();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return const Welcome();
+                }), ModalRoute.withName('/'));
+              },
+            ),
+          ],
+        );
+      },
     );
   }
-}
-
-class Items {
-  String title;
-  String subtitle;
-  String event;
-  String img;
-  Items({required this.title, required this.subtitle, required this.event,required this.img});
 }
