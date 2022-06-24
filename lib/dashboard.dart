@@ -1,9 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'review.dart';
 import 'welcome.dart';
 import 'auth.dart';
-import 'addcomscreen.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -81,10 +81,11 @@ class _Dashboard extends State<Dashboard> {
                     color: const Color(0xFF9DBE76),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) {
-                            return AddScreen();
-                          }), ModalRoute.withName('/review'));
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return const AddUser();
+                            },
+                          ));
                         },
                         child: const Center(
                           child: Text(
@@ -99,7 +100,18 @@ class _Dashboard extends State<Dashboard> {
                   Container(
                     height: 100,
                     color: const Color(0xFF74A730),
-                    child: const Center(child: Text('Entry B')),
+                    child: TextButton(
+                        onPressed: () {
+                        },
+                        child: const Center(
+                          child: Text(
+                            "Baca Review",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
                   ),
                   Container(
                     height: 100,
