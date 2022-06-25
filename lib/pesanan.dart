@@ -22,14 +22,18 @@ class PesanTiket extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xffEBEDCF),
       appBar: AppBar(
-        title: const Text("Pesan Tiket"),
+        title: const Text("Daftar Review"),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return const Dashboard();
+                },
+              ));
+            }),
       ),
       body: ListView(
         children: [
@@ -87,6 +91,14 @@ class PesanTiket extends StatelessWidget {
                                         onPressed: () {
                                           pesantiket(
                                               "Tiket Masuk", "Rp 25.000,-");
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                            return const ReviewPesanan();
+                                          }),
+                                                  ModalRoute.withName(
+                                                      '/pesanansaya'));
                                         },
                                       ),
                                     ],
@@ -154,6 +166,14 @@ class PesanTiket extends StatelessWidget {
                                         onPressed: () {
                                           pesantiket(
                                               "Tiket Camping", "Rp 55.000,-");
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                            return const ReviewPesanan();
+                                          }),
+                                                  ModalRoute.withName(
+                                                      '/pesanansaya'));
                                         },
                                       ),
                                     ],
@@ -221,6 +241,14 @@ class PesanTiket extends StatelessWidget {
                                         onPressed: () {
                                           pesantiket("Tiket Kolam Renang",
                                               "Rp 15.000,-");
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                            return const ReviewPesanan();
+                                          }),
+                                                  ModalRoute.withName(
+                                                      '/pesanansaya'));
                                         },
                                       ),
                                     ],
@@ -288,6 +316,14 @@ class PesanTiket extends StatelessWidget {
                                         onPressed: () {
                                           pesantiket("Tiket Parkir Mobil",
                                               "Rp 15.000,-");
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                            return const ReviewPesanan();
+                                          }),
+                                                  ModalRoute.withName(
+                                                      '/pesanansaya'));
                                         },
                                       ),
                                     ],
@@ -354,6 +390,14 @@ class PesanTiket extends StatelessWidget {
                                         onPressed: () {
                                           pesantiket("Tiket Parkir Motor",
                                               "Rp 2.000,-");
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) {
+                                            return const ReviewPesanan();
+                                          }),
+                                                  ModalRoute.withName(
+                                                      '/pesanansaya'));
                                         },
                                       ),
                                     ],
@@ -415,19 +459,18 @@ class _ReviewPesanan extends State<ReviewPesanan> {
 
           return Scaffold(
           appBar: AppBar(
-            title: const Text("Daftar Pesanan Saya"),
-            centerTitle: true,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return const Dashboard();
-                    },
-                  ));
-                } 
-              ),
-          ),
+              title: const Text("Daftar Pesanan"),
+              centerTitle: true,
+              leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return const Dashboard();
+                      },
+                    ));
+                  }),
+            ),
           body: ListView(
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
