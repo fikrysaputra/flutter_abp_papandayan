@@ -113,8 +113,20 @@ class _Dashboard extends State<Dashboard> {
                         )),
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFF74A730)),
+                        color: const Color(0xFF9DBE76),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     height: 100,
-                    color: const Color(0xFF74A730),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
@@ -133,8 +145,20 @@ class _Dashboard extends State<Dashboard> {
                         )),
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFF74A730)),
+                        color: const Color(0xFF9DBE76),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     height: 100,
-                    color: const Color(0xFF9DBE76),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
@@ -153,8 +177,20 @@ class _Dashboard extends State<Dashboard> {
                         )),
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFF74A730)),
+                        color: const Color(0xFF9DBE76),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     height: 100,
-                    color: const Color(0xFF9DBE76),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(

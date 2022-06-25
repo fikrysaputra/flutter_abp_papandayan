@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'dashboard.dart';
-//import 'package:twapapandayan/dashboard.dart';
-//import 'package:ticketview/ticketview.dart';
 
 class PesanTiket extends StatelessWidget {
   const PesanTiket({Key? key}) : super(key: key);
@@ -16,15 +14,17 @@ class PesanTiket extends StatelessWidget {
 
     Future<void> pesantiket(String tiketIs, String hargaIs) {
       return tiket
-          .add({'tiket': tiketIs, 'harga': hargaIs})
+          .doc('DaftarPesan')
+          .set({'tiket': tiketIs, 'harga': hargaIs})
           .then((value) => print("Tiket dipesan"))
           .catchError((error) => print("Failed to add user: $error"));
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Daftar Review"),
+        title: const Text("Daftar Pesanan"),
         centerTitle: true,
+        backgroundColor: Colors.green,
         leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -439,6 +439,16 @@ class _ReviewPesanan extends State<ReviewPesanan> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('tiket').snapshots();
 
+  CollectionReference comment = FirebaseFirestore.instance.collection('tiket');
+
+  Future<void> deleteComment() {
+    return comment
+        .doc('DaftarPesan')
+        .delete()
+        .then((value) => print("terhapus"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -458,7 +468,7 @@ class _ReviewPesanan extends State<ReviewPesanan> {
           }
 
           return Scaffold(
-          appBar: AppBar(
+            appBar: AppBar(
               title: const Text("Daftar Pesanan"),
               centerTitle: true,
               leading: IconButton(
@@ -471,13 +481,82 @@ class _ReviewPesanan extends State<ReviewPesanan> {
                     ));
                   }),
             ),
-          body: ListView(
+            body: ListView(
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 return ListTile(
                   title: Text("Janis Tiket : ${data['tiket']}"),
                   subtitle: Text("Harga : ${data['harga']}"),
+                  onTap: () {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Yakin ?'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('Yakin ingin menghapus pesanan ?'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Batal'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Hapus'),
+                              onPressed: () {
+                                showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Yakin ?'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('Yakin ingin hapus Review ?'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Tidak'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: const Text('Iya'),
+                                          onPressed: () {
+                                            deleteComment();
+                                            Navigator.of(context)
+                                                .pushAndRemoveUntil(
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                              return const ReviewPesanan();
+                                            }),
+                                                    ModalRoute.withName(
+                                                        '/pesanansaya'));
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 );
               }).toList(),
             ),

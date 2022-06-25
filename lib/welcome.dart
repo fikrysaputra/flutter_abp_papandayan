@@ -79,12 +79,7 @@ class _Welcome extends State<Welcome> {
                           width: 240.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(colors: [
-                              Color(0xff4285f4),
-                              Color(0xFF34a853),
-                              Color(0xfffbbc05),
-                              Color(0xFFea4335)
-                            ]),
+                            color: const Color(0xFF34a853),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.5),
