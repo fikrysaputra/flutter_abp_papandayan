@@ -35,9 +35,9 @@ Future<Object?> signInWithGoogle() async {
     email = user.email!;
     imageUrl = user.photoURL!;
 
-    if (name.contains(" ")) {
+    /*if (name.contains(" ")) {
       name = name.substring(0, name.indexOf(" "));
-    }
+    }*/
 
     assert(!user.isAnonymous);
 

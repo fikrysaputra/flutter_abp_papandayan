@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:twapapandayan/dashboard.dart';
 
 class AddUser extends StatelessWidget {
   const AddUser({Key? key}) : super(key: key);
@@ -55,7 +55,7 @@ class AddUser extends StatelessWidget {
             },
           ),
           TextFormField(
-            controller: komentIs,
+              controller: komentIs,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 filled: true,
@@ -98,7 +98,7 @@ class AddUser extends StatelessWidget {
                           content: SingleChildScrollView(
                             child: ListBody(
                               children: const <Widget>[
-                                Text('Yakin ingin menambahkan Review ?'),
+                                Text('Yakin ingin menambahkan Review ? \nReview tidak dapat dihapus'),
                               ],
                             ),
                           ),
@@ -113,11 +113,9 @@ class AddUser extends StatelessWidget {
                               child: const Text('Iya'),
                               onPressed: () {
                                 addUser();
-                                //Navigator.of(context).pop();
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) {
-                                  return const GetUserName(
-                                      'eICSvAxpPViXIb6FheHd');
+                                  return const ReviewInformation();
                                 }), ModalRoute.withName('/daftarreview'));
                               },
                             ),
@@ -143,55 +141,16 @@ class AddUser extends StatelessWidget {
   }
 }
 
-class GetUserName extends StatelessWidget {
-  final String documentId;
-
-  const GetUserName(this.documentId, {Key? key}) : super(key: key);
+class ReviewInformation extends StatefulWidget {
+  const ReviewInformation({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('komentar');
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc(documentId).get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text("Something went wrong");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Text("Rating: ${data['rating']} ${data['komentar']}");
-        }
-
-        return const Text("loading");
-      },
-    );
-  }
+  _ReviewInformation createState() => _ReviewInformation();
 }
 
-Stream collectionStream =
-    FirebaseFirestore.instance.collection('rev').snapshots();
-Stream documentStream =
-    FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
-
-class UserInformation extends StatefulWidget {
-  const UserInformation({Key? key}) : super(key: key);
-
-  @override
-  _UserInformationState createState() => _UserInformationState();
-}
-
-class _UserInformationState extends State<UserInformation> {
+class _ReviewInformation extends State<ReviewInformation> {
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('users').snapshots();
+      FirebaseFirestore.instance.collection('komentar').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -203,18 +162,39 @@ class _UserInformationState extends State<UserInformation> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+          return const Scaffold(
+            body: ListTile(
+              leading: CircularProgressIndicator(),
+              title: Text('Loading...'),
+            ),
+          );
         }
 
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return ListTile(
-              title: Text(data['full_name']),
-              subtitle: Text(data['company']),
-            );
-          }).toList(),
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Daftar Review"),
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) {
+                      return const Dashboard();
+                    },
+                  ));
+                } 
+              ),
+          ),
+          body: ListView(
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return ListTile(
+                title: Text("Rating : ${data['rating']}"),
+                subtitle: Text("Komentar : ${data['komentar']}"),
+              );
+            }).toList(),
+          ),
         );
       },
     );

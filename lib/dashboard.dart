@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'pesanan.dart';
 import 'review.dart';
 import 'welcome.dart';
 import 'auth.dart';
@@ -22,20 +23,17 @@ class _Dashboard extends State<Dashboard> {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 CircleAvatar(
                   backgroundImage: NetworkImage(
                     imageUrl,
                   ),
                   radius: 40,
-                  backgroundColor: Colors.transparent,
-                ),
-                const SizedBox(height: 4),
-                const SizedBox(
-                  width: 10,
+                  backgroundColor: const Color(0xFF74A730),
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     const Text("Selamat Datang !"),
                     const SizedBox(
@@ -54,7 +52,7 @@ class _Dashboard extends State<Dashboard> {
                   onPressed: () {
                     keluarDialog();
                   },
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.centerRight,
                   icon: const Icon(Icons.logout_outlined,
                       color: Colors.red, size: 30.0),
                 )
@@ -64,21 +62,38 @@ class _Dashboard extends State<Dashboard> {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              margin: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(20.0),
               child:
-                  const Text('Dashboard', style: TextStyle(color: Colors.grey)),
+                  const Text('Dashboard', style: TextStyle(color: Colors.grey, fontSize: 25)),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: SizedBox(
               height: 600.0,
-              child: ListView(
-                padding: const EdgeInsets.all(8),
+              child: GridView(
+                padding: const EdgeInsets.all(20.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20.0,
+                  mainAxisSpacing: 20.0,
+                ),
                 children: <Widget>[
                   Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFF74A730)),
+                      color: const Color(0xFF9DBE76),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ], 
+                      borderRadius: const BorderRadius.all(Radius.circular(20))
+                    ),
                     height: 100,
-                    color: const Color(0xFF9DBE76),
                     child: TextButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -102,6 +117,10 @@ class _Dashboard extends State<Dashboard> {
                     color: const Color(0xFF74A730),
                     child: TextButton(
                         onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return const ReviewInformation();
+                          }), ModalRoute.withName('/daftarreview'));
                         },
                         child: const Center(
                           child: Text(
@@ -116,7 +135,42 @@ class _Dashboard extends State<Dashboard> {
                   Container(
                     height: 100,
                     color: const Color(0xFF9DBE76),
-                    child: const Center(child: Text('Entry C')),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return const PesanTiket();
+                          }), ModalRoute.withName('/pesanan'));
+                        },
+                        child: const Center(
+                          child: Text(
+                            "Pesan Tiket",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ),
+                  Container(
+                    height: 100,
+                    color: const Color(0xFF9DBE76),
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            return const ReviewPesanan();
+                          }), ModalRoute.withName('/pesanansaya'));
+                        },
+                        child: const Center(
+                          child: Text(
+                            "Pesanan Saya",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )),
                   ),
                 ],
               ),
